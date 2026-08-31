@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BABOUCHE — Menu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --oat:#F3EFE6;
+    --paper:#FBF9F4;
+    --ink:#2B2A26;
+    --spruce:#3E5245;
+    --lingon:#9C3F30;
+    --line:#D9D2C1;
+    --muted:#7A7466;
+    --brown:#3D2A1D;
+    --gold:#C29B38;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    padding:0;
+    background:var(--oat);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    font-weight:400;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    max-width:640px;
+    margin:0 auto;
+    padding:0 24px 60px;
+  }
+
+  /* Header with Background Photo */
+  header {
+    position: relative;
+    margin: 0 -24px 20px -24px;
+    padding: 30px 24px 25px;
+    text-align: center;
+    /* REPLACE THIS URL WITH YOUR RESTAURANT PHOTO DIRECT LINK */
+    background: linear-gradient(180deg, rgba(243, 239, 230, 0.3) 0%, rgba(243, 239, 230, 0.6) 100%), 
+                url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1000&q=80') center/cover no-repeat;
+    border-bottom: 1px solid var(--line);
+  }
+
+  /* Language switcher */
+  .lang-switch{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    margin-bottom:20px;
+    position: relative;
+    z-index: 2;
+  }
+  .lang-btn{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    padding:6px 12px;
+    border:1px solid rgba(61, 42, 29, 0.3);
+    border-radius:999px;
+    background: rgba(251, 249, 244, 0.85);
+    backdrop-filter: blur(4px);
+    font-family:'Work Sans', sans-serif;
+    font-size:13px;
+    color:var(--brown);
+    font-weight: 500;
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .lang-btn .flag{font-size:15px;}
+  .lang-btn.active{
+    background:var(--spruce);
+    border-color:var(--spruce);
+    color:var(--paper);
+  }
+  .lang-btn:not(.active):hover{
+    border-color:var(--spruce);
+    color:var(--spruce);
+  }
+
+  /* Logo SVG Container */
+  .logo-svg {
+    width: 100%;
+    max-width: 240px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    filter: drop-shadow(0px 2px 4px rgba(255,255,255,0.8));
+  }
+
+  /* Sticky Navigation Bar */
+  .nav-bar {
+    position: sticky;
+    top: 0;
+    background: rgba(243, 239, 230, 0.95);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+    padding: 10px 0;
+    margin: 0 -24px 24px -24px;
+    border-bottom: 1px solid var(--line);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  }
+  .nav-scroll {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 0 24px;
+    scrollbar-width: none;
+  }
+  .nav-scroll::-webkit-scrollbar { display: none; }
+  
+  .nav-btn {
+    white-space: nowrap;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    color: var(--brown);
+    font-family: 'Work Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+  }
+  .nav-btn:hover, .nav-btn:active {
+    background: var(--spruce);
+    color: #fff;
+    border-color: var(--spruce);
+  }
+
+  .rule{
+    border:none;
+    border-top:1px solid var(--line);
+    margin:28px 0 22px;
+  }
+  section{
+    margin-bottom:6px;
+    scroll-margin-top: 60px;
+  }
+  .section-title{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:20px;
+    color:var(--lingon);
+    margin:0 0 2px;
+  }
+  .section-sub{
+    font-size:12px;
+    color:var(--muted);
+    margin:0 0 14px;
+    font-style:italic;
+  }
+  .item{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    gap:16px;
+    padding:11px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .item:last-child{border-bottom:none;}
+  .item-name{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:16px;
+    color:var(--ink);
+  }
+  .item-desc{
+    font-size:12.5px;
+    color:var(--muted);
+    margin-top:2px;
+    font-weight:400;
+    max-width:420px;
+  }
+  .item-price{
+    font-size:13.5px;
+    color:var(--spruce);
+    white-space:nowrap;
+    font-variant-numeric:tabular-nums;
+    padding-top:1px;
+  }
+  .item-main{flex:1;}
+  footer{
+    text-align:center;
+    margin-top:36px;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+    font-size:11.5px;
+    color:var(--muted);
+    line-height:1.7;
+  }
+  .social{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    margin-top:18px;
+  }
+  .social a{
+    color:var(--spruce);
+    opacity:0.75;
+    transition:opacity .15s ease;
+    line-height:0;
+  }
+  .social a:hover{opacity:1;}
+  .social svg{width:19px;height:19px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <!-- Language buttons inside header -->
+    <div class="lang-switch">
+      <button class="lang-btn active" data-lang="en"><span class="flag">🇬🇧</span> English</button>
+      <button class="lang-btn" data-lang="fr"><span class="flag">🇫🇷</span> Français</button>
+      <button class="lang-btn" data-lang="es"><span class="flag">🇪🇸</span> Español</button>
+    </div>
+
+    <!-- BABOUCHE VECTOR LOGO -->
+    <svg class="logo-svg" viewBox="0 0 300 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M110 115V80C110 80 110 50 150 25C190 50 190 80 190 80V115" stroke="#3D2A1D" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M142 22.5L150 15L158 22.5" stroke="#3D2A1D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <line x1="88" y1="115" x2="110" y2="115" stroke="#3D2A1D" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="190" y1="115" x2="212" y2="115" stroke="#3D2A1D" stroke-width="2.5" stroke-linecap="round"/>
+
+      <path d="M150 38 L152 44 L158 44 L153 48 L155 54 L150 50 L145 54 L147 48 L142 44 L148 44 Z" stroke="#C29B38" stroke-width="1" fill="none"/>
+
+      <ellipse cx="150" cy="88" rx="16" ry="34" fill="#3D2A1D" stroke="#3D2A1D" stroke-width="1.5"/>
+      <path d="M150 58 C140 70 140 100 150 114 C160 100 160 70 150 58 Z" stroke="#C29B38" stroke-width="1" fill="none" stroke-dasharray="2 1.5"/>
+      <circle cx="150" cy="86" r="6" stroke="#C29B38" stroke-width="1" fill="none"/>
+      <path d="M150 82 L150 90 M146 86 L154 86" stroke="#C29B38" stroke-width="0.8"/>
+      <polygon points="150,118 152,121 150,124 148,121" fill="#C29B38"/>
+
+      <text x="150" y="156" font-family="'Fraunces', serif" font-size="28" font-weight="500" fill="#3D2A1D" text-anchor="middle" letter-spacing="3">BABOUCHE</text>
+
+      <line x1="60" y1="168" x2="240" y2="168" stroke="#C29B38" stroke-width="0.8"/>
+      <polygon points="150,166 153,168 150,170 147,168" fill="#C29B38"/>
+
+      <text x="150" y="185" font-family="'Work Sans', sans-serif" font-size="10" font-weight="500" fill="#3D2A1D" text-anchor="middle" letter-spacing="7">RESTAURANT</text>
+      <polygon points="150,193 152,195 150,197 148,195" fill="#C29B38"/>
+    </svg>
+  </header>
+
+  <!-- Sticky Quick-Nav Buttons -->
+  <div class="nav-bar">
+    <div class="nav-scroll">
+      <a href="#starters" class="nav-btn" data-i18n="s1.title">Entrées</a>
+      <a href="#mains" class="nav-btn" data-i18n="s2.title">Plats principaux</a>
+      <a href="#couscous" class="nav-btn" data-i18n="s3.title">Couscous</a>
+      <a href="#tajines" class="nav-btn" data-i18n="s4.title">Tajines</a>
+      <a href="#fastfood" class="nav-btn" data-i18n="s5.title">Fast food</a>
+      <a href="#pizza" class="nav-btn" data-i18n="s6.title">Pizza</a>
+      <a href="#desserts" class="nav-btn" data-i18n="s7.title">Desserts</a>
+      <a href="#hotdrinks" class="nav-btn" data-i18n="s8.title">Boissons chaudes</a>
+      <a href="#colddrinks" class="nav-btn" data-i18n="s9.title">Boissons froides</a>
+      <a href="#juices" class="nav-btn" data-i18n="s10.title">Jus</a>
+    </div>
+  </div>
+
+  <!-- STARTERS -->
+  <section id="starters">
+    <div class="section-title" data-i18n="s1.title">Entrées</div>
+    <div class="section-sub" data-i18n="s1.sub">Starters</div>
+
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s1.i1name">Salade marocaine</div>
+        <div class="item-desc" data-i18n="s1.i1desc">Tomato, onions, cucumber, pepper</div>
+      </div>
+      <div class="item-price">40 dh</div>
+    </div>
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s1.i2name">Assortiment Briouates</div>
+        <div class="item-desc" data-i18n="s1.i2desc">Cheese, minced meat</div>
+      </div>
+      <div class="item-price">55 dh</div>
+    </div>
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s1.i3name">Salade taboulé</div>
+        <div class="item-desc" data-i18n="s1.i3desc">Borghol, tomato, pepper, cucumber, onions, mint, olive oil</div>
+      </div>
+      <div class="item-price">40 dh</div>
+    </div>
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s1.i4name">Aubergines gratin</div>
+      </div>
+      <div class="item-price">50 dh</div>
+    </div>
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s1.i5name">Babouche aux fruits de mer</div>
+        <div class="item-desc" data-i18n="s1.i5desc">Red salad, citrus segments, apple, pineapple, seafood</div>
+      </div>
+      <div class="item-price">60 dh</div>
+    </div>
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s1.i6name">Tartar d'avocat au quinoa</div>
+        <div class="item-desc" data-i18n="s1.i6desc">Avocado, tomato, onions, cucumber, pepper</div>
+      </div>
+      <div class="item-price">55 dh</div>
+    </div>
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s1.i7name">Soupe Harira</div>
+      </div>
+      <div class="item-price">30 dh</div>
+    </div>
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s1.i8name">Pastilla au poulet et aux amandes</div>
+      </div>
+      <div class="item-price">60 dh</div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- MAIN -->
+  <section id="mains">
+    <div class="section-title" data-i18n="s2.title">Plats principaux</div>
+    <div class="section-sub" data-i18n="s2.sub">Main Dishes</div>
+
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s2.i1name">Kebab Kefta</div>
+        <div class="item-desc" data-i18n="s2.i1desc">Rice, sauteed vegetables, fries</div>
+      </div>
+      <div class="item-price">85 dh</div>
+    </div>
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s2.i2name">Poulet Kabab</div>
+        <div class="item-desc" data-i18n="s2.i2desc">Rice, sauteed vegetables, fries</div>
+      </div>
+      <div class="item-price">85 dh</div>
+    </div>
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s2.i3name">Falafel</div>
+        <div class="item-desc" data-i18n="s2.i3desc">Green salad, hummus, babaghanouch, tarator sauce</div>
+      </div>
+      <div class="item-price">75 dh</div>
+    </div>
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s2.i4name">Fatte badinjan</div>
+        <div class="item-desc" data-i18n="s2.i4desc">Aubergine, minced meat, bolognese sauce, laban, Lebanese crouton</div>
+      </div>
+      <div class="item-price">75 dh</div>
+    </div>
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s2.i5name">Poulet à la crème et aux champignons</div>
+        <div class="item-desc" data-i18n="s2.i5desc">Minced chicken with creme and mushrooms with fries</div>
+      </div>
+      <div class="item-price">75 dh</div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- COUSCOUS -->
+  <section id="couscous">
+    <div class="section-title" data-i18n="s3.title">Couscous</div>
+
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s3.i1name">Couscous Poulet &amp; 7 Légumes</div>
+        <div class="item-desc" data-i18n="s3.i1desc">Couscous with chicken, seven vegetables and tfaya caramelized onions</div>
+      </div>
+      <div class="item-price">85 dh</div>
+    </div>
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s3.i2name">Couscous Bœuf &amp; 7 Légumes</div>
+        <div class="item-desc" data-i18n="s3.i2desc">Couscous with beef, vegetables and tfaya caramelized onions</div>
+      </div>
+      <div class="item-price">85 dh</div>
+    </div>
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s3.i3name">Couscous Royal</div>
+        <div class="item-desc" data-i18n="s3.i3desc">Royal couscous of vegetables, chicken and beef, and tfaya caramelized onions</div>
+      </div>
+      <div class="item-price">90 dh</div>
+    </div>
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s3.i4name">Couscous 7 Légumes</div>
+        <div class="item-desc" data-i18n="s3.i4desc">Couscous with 7 vegetables and tfaya caramelized onions</div>
+      </div>
+      <div class="item-price">75 dh</div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- TAJINES -->
+  <section id="tajines">
+    <div class="section-title" data-i18n="s4.title">Tajines</div>
+
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s4.i1name">Tajine berbère de légumes</div>
+        <div class="item-desc" data-i18n="s4.i1desc">Berber Tagine of vegetables</div>
+      </div>
+      <div class="item-price">60 dh</div>
+    </div>
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s4.i2name">Tajine de kefta aux œufs</div>
+        <div class="item-desc" data-i18n="s4.i2desc">Tajine of kefta with eggs and fresh tomato and fries</div>
+      </div>
+      <div class="item-price">75 dh</div>
+    </div>
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s4.i3name">Tajine de bœuf aux pruneaux</div>
+        <div class="item-desc" data-i18n="s4.i3desc">Beef tagine with prunes and almonds</div>
+      </div>
+      <div class="item-price">85 dh</div>
+    </div>
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s4.i4name">Tajine poisson et fruits de mer</div>
+        <div class="item-desc" data-i18n="s4.i4desc">Fish tagine with seafood and pepper farandoles</div>
+      </div>
+      <div class="item-price">80 dh</div>
+    </div>
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s4.i5name">Tajine de poulet au citron et olives</div>
+        <div class="item-desc" data-i18n="s4.i5desc">Chicken tagine with lemon and olives and fries</div>
+      </div>
+      <div class="item-price">80 dh</div>
+    </div>
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s4.i6name">Tanjia de viande de chameau</div>
+        <div class="item-desc" data-i18n="s4.i6desc">Tanjia of camel meat</div>
+      </div>
+      <div class="item-price">120 dh</div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- FAST FOOD -->
+  <section id="fastfood">
+    <div class="section-title" data-i18n="s5.title">Fast food</div>
+
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s5.i1name">Quesadilla au poulet et fromage</div>
+        <div class="item-desc" data-i18n="s5.i1desc">Qessadilla of chicken and cheese with fries</div>
+      </div>
+      <div class="item-price">70 dh</div>
+    </div>
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s5.i2name">Sandwich Falafel</div>
+        <div class="item-desc" data-i18n="s5.i2desc">Falafel sandwich with hummus and fries</div>
+      </div>
+      <div class="item-price">65 dh</div>
+    </div>
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s5.i3name">Cheeseburger</div>
+        <div class="item-desc" data-i18n="s5.i3desc">Cheeseburger with tomato, salad, pickle, cheddar with fries</div>
+      </div>
+      <div class="item-price">60 dh</div>
+    </div>
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s5.i4name">Crunchy burger de poulet</div>
+        <div class="item-desc" data-i18n="s5.i4desc">Chicken Crunchy burger with fries</div>
+      </div>
+      <div class="item-price">60 dh</div>
+    </div>
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s5.i5name">Sandwich poulet grillé</div>
+        <div class="item-desc" data-i18n="s5.i5desc">Grilled Chicken sandwich with fries</div>
+      </div>
+      <div class="item-price">60 dh</div>
+    </div>
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s5.i6name">Sandwich Kofta grillé</div>
+        <div class="item-desc" data-i18n="s5.i6desc">Grilled Kofta sandwich with fries</div>
+      </div>
+      <div class="item-price">60 dh</div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- PIZZA -->
+  <section id="pizza">
+    <div class="section-title" data-i18n="s6.title">Pizza</div>
+
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s6.i1name">Pizza Margarita</div>
+        <div class="item-desc" data-i18n="s6.i1desc">Tomato sauce, mozzarella, black olives</div>
+      </div>
+      <div class="item-price">50 dh</div>
+    </div>
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s6.i2name">Pizza Veggie</div>
+        <div class="item-desc" data-i18n="s6.i2desc">Tomato sauce, zucchini, eggplant, onions, olives, mozzarella</div>
+      </div>
+      <div class="item-price">60 dh</div>
+    </div>
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s6.i3name">Pizza Sicilienne</div>
+        <div class="item-desc" data-i18n="s6.i3desc">Tomato sauce, tuna, pepper, olive, mozzarella</div>
+      </div>
+      <div class="item-price">60 dh</div>
+    </div>
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s6.i4name">Pizza Royal Chicken</div>
+        <div class="item-desc" data-i18n="s6.i4desc">Tomato sauce, mozzarella, chicken breast, olives, cherry tomato, onions</div>
+      </div>
+      <div class="item-price">60 dh</div>
+    </div>
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s6.i5name">Pizza 4 Fromages</div>
+        <div class="item-desc" data-i18n="s6.i5desc">Mozzarella, red, blue, goats</div>
+      </div>
+      <div class="item-price">60 dh</div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- DESSERTS -->
+  <section id="desserts">
+    <div class="section-title" data-i18n="s7.title">Desserts</div>
+
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s7.i1name">Orange à la cannelle</div>
+        <div class="item-desc" data-i18n="s7.i1desc">Cinnamon orange</div>
+      </div>
+      <div class="item-price">30 dh</div>
+    </div>
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s7.i2name">Salade de fruits frais</div>
+        <div class="item-desc" data-i18n="s7.i2desc">Fresh Fruit salad</div>
+      </div>
+      <div class="item-price">35 dh</div>
+    </div>
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s7.i3name">Crêpe Nutella</div>
+      </div>
+      <div class="item-price">30 dh</div>
+    </div>
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s7.i4name">Crêpe Nutella banane et boule de glace vanille</div>
+        <div class="item-desc" data-i18n="s7.i4desc">Nutella banana crepe with vanilla ice cream</div>
+      </div>
+      <div class="item-price">50 dh</div>
+    </div>
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s7.i5name">Corne de gazelle (3 pièces)</div>
+        <div class="item-desc" data-i18n="s7.i5desc">Gazelle horn (3 pieces)</div>
+      </div>
+      <div class="item-price">35 dh</div>
+    </div>
+    <div class="item">
+      <div class="item-main">
+        <div class="item-name" data-i18n="s7.i6name">Tiramisu façon pastilla</div>
+        <div class="item-desc" data-i18n="s7.i6desc">Tiramisu style pastilla</div>
+      </div>
+      <div class="item-price">45 dh</div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- HOT DRINKS -->
+  <section id="hotdrinks">
+    <div class="section-title" data-i18n="s8.title">Boissons chaudes</div>
+    <div class="section-sub" data-i18n="s8.sub">Hot drinks</div>
+
+    <div class="item"><div class="item-main"><div class="item-name" data-i18n="s8.i1name">Café noir</div><div class="item-desc" data-i18n="s8.i1desc">Black coffee</div></div><div class="item-price">17 dh</div></div>
+    <div class="item"><div class="item-main"><div class="item-name" data-i18n="s8.i2name">Café américain</div><div class="item-desc" data-i18n="s8.i2desc">American coffee</div></div><div class="item-price">20 dh</div></div>
+    <div class="item"><div class="item-main"><div class="item-name" data-i18n="s8.i3name">Café au lait</div><div class="item-desc" data-i18n="s8.i3desc">Coffee with milk</div></div><div class="item-price">20 dh</div></div>
+    <div class="item"><div class="item-main"><div class="item-name" data-i18n="s8.i4name">Thé marocain</div><div class="item-desc" data-i18n="s8.i4desc">Moroccan Tea</div></div><div class="item-price">19 dh</div></div>
+    <div class="item"><div class="item-main"><div class="item-name" data-i18n="s8.i5name">Chocolat chaud</div><div class="item-desc" data-i18n="s8.i5desc">Hot chocolate</div></div><div class="item-price">20 dh</div></div>
+    <div class="item"><div class="item-main"><div class="item-name" data-i18n="s8.i6name">Lipton</div></div><div class="item-price">20 dh</div></div>
+    <div class="item"><div class="item-main"><div class="item-name" data-i18n="s8.i7name">Verveine</div><div class="item-desc" data-i18n="s8.i7desc">Verbena</div></div><div class="item-price">20 dh</div></div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- COLD DRINKS -->
+  <section id="colddrinks">
+    <div class="section-title" data-i18n="s9.title">Boissons froides</div>
+    <div class="section-sub" data-i18n="s9.sub">Cold drinks</div>
+
+    <div class="item"><div class="item-main"><div class="item-name" data-i18n="s9.i1name">San Miguel 0.0</div></div><div class="item-price">35 dh</div></div>
+    <div class="item"><div class="item-main"><div class="item-name" data-i18n="s9.i2name">Soda</div><div class="item-desc" data-i18n="s9.i2desc">Coca, Coca Zero, Sprite, Schweppes lemon</div></div><div class="item-price">20 dh</div></div>
+    <div class="item"><div class="item-main"><div class="item-name" data-i18n="s9.i3name">Petite bouteille d'eau</div><div class="item-desc" data-i18n="s9.i3desc">Small bottle of water (0.5L)</div></div><div class="item-price">10 dh</div></div>
+    <div class="item"><div class="item-main"><div class="item-name" data-i18n="s9.i4name">Grande bouteille d'eau</div><div class="item-desc" data-i18n="s9.i4desc">Big bottle of water (1.5L)</div></div><div class="item-price">15 dh</div></div>
+    <div class="item"><div class="item-main"><div class="item-name" data-i18n="s9.i5name">Eau pétillante</div><div class="item-desc" data-i18n="s9.i5desc">Sparkling water (0.5L)</div></div><div class="item-price">15 dh</div></div>
+    <div class="item"><div class="item-main"><div class="item-name" data-i18n="s9.i6name">Eau pétillante grand</div><div class="item-desc" data-i18n="s9.i6desc">Sparkling water (1L)</div></div><div class="item-price">25 dh</div></div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- JUICES -->
+  <section id="juices">
+    <div class="section-title" data-i18n="s10.title">Jus</div>
+    <div class="section-sub" data-i18n="s10.sub">Juices</div>
+
+    <div class="item"><div class="item-main"><div class="item-name" data-i18n="s10.i1name">Jus frais</div><div class="item-desc" data-i18n="s10.i1desc">Fresh juice (Orange, Carrots, Banana, Apple, Pineapple)</div></div><div class="item-price">25 dh</div></div>
+    <div class="item"><div class="item-main"><div class="item-name" data-i18n="s10.i2name">Jus d'avocat</div><div class="item-desc" data-i18n="s10.i2desc">Avocado juice</div></div><div class="item-price">30 dh</div></div>
+    <div class="item"><div class="item-main"><div class="item-name" data-i18n="s10.i3name">Jus mixte</div><div class="item-desc" data-i18n="s10.i3desc">Mixed juice</div></div><div class="item-price">30 dh</div></div>
+    <div class="item"><div class="item-main"><div class="item-name" data-i18n="s10.i4name">Mojito</div></div><div class="item-price">25 dh</div></div>
+  </section>
+
+  <footer>
+    <div data-i18n="footer1">Tous nos prix sont en Dirhams Marocains (DH).</div>
+    <div data-i18n="footer2">Service compris.</div>
+
+    <div class="social">
+      <a href="https://facebook.com/YOUR_PAGE" target="_blank" rel="noopener" aria-label="Facebook">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 4h-2a4 4 0 0 0-4 4v3H6v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3z"/>
+        </svg>
+      </a>
+      <a href="https://instagram.com/YOUR_PAGE" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3.5" y="3.5" width="17" height="17" rx="5"/>
+          <circle cx="12" cy="12" r="3.6"/>
+          <circle cx="17.2" cy="6.8" r="0.9" fill="currentColor" stroke="none"/>
+        </svg>
+      </a>
+      <a href="https://www.tripadvisor.com/YOUR_PAGE" target="_blank" rel="noopener" aria-label="TripAdvisor">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M7 8.5C4.5 8.5 3 10.2 3 12s1.5 3.5 4 3.5 4-1.7 4-3.5-1.5-3.5-4-3.5z"/>
+          <path d="M17 8.5c-2.5 0-4 1.7-4 3.5s1.5 3.5 4 3.5 4-1.7 4-3.5-1.5-3.5-4-3.5z"/>
+          <circle cx="7" cy="12" r="1.4" fill="currentColor" stroke="none"/>
+          <circle cx="17" cy="12" r="1.4" fill="currentColor" stroke="none"/>
+          <path d="M9.5 8.5 12 6l2.5 2.5"/>
+          <path d="M2 8.5h6M16 8.5h6"/>
+        </svg>
+      </a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+const translations = {
+  en: {
+    "s1.title": "Starters", "s1.sub": "Entrées",
+    "s1.i1name": "Moroccan salad", "s1.i1desc": "Tomato, onions, cucumber, pepper",
+    "s1.i2name": "Assortment Briouat", "s1.i2desc": "Cheese, minced meat",
+    "s1.i3name": "Tabouleh salad", "s1.i3desc": "Borghol, tomato, pepper, cucumber, onions, mint, olive oil",
+    "s1.i4name": "Aubergines gratin",
+    "s1.i5name": "Babouche salad with seafood", "s1.i5desc": "Red salad, citrus segments, apple, pineapple, seafood",
+    "s1.i6name": "Avocado tartar with quinoa", "s1.i6desc": "Avocado, tomato, onions, cucumber, pepper",
+    "s1.i7name": "Harira soup",
+    "s1.i8name": "Pastilla with chicken and almonds",
+
+    "s2.title": "Main Dishes", "s2.sub": "Plats principaux",
+    "s2.i1name": "Kabab Kefta", "s2.i1desc": "Rice, sauteed vegetables, fries",
+    "s2.i2name": "Chicken Kabab", "s2.i2desc": "Rice, sauteed vegetables, fries",
+    "s2.i3name": "Falafel", "s2.i3desc": "Green salad, hummus, babaghanouch, tarator sauce",
+    "s2.i4name": "Fattat badinjan", "s2.i4desc": "Aubergine, minced meat, bolognese sauce, laban, Lebanese crouton",
+    "s2.i5name": "Chicken with cream & mushrooms", "s2.i5desc": "Minced chicken with cream and mushrooms served with fries",
+
+    "s3.title": "Couscous",
+    "s3.i1name": "Chicken Couscous (7 Vegetables)", "s3.i1desc": "Couscous with chicken, 7 vegetables, and tfaya caramelized onions",
+    "s3.i2name": "Beef Couscous (7 Vegetables)", "s3.i2desc": "Couscous with beef, 7 vegetables, and tfaya caramelized onions",
+    "s3.i3name": "Royal Couscous", "s3.i3desc": "Royal couscous of vegetables, chicken, beef, and tfaya caramelized onions",
+    "s3.i4name": "Vegetable Couscous", "s3.i4desc": "Couscous with 7 vegetables and tfaya caramelized onions",
+
+    "s4.title": "Tajines",
+    "s4.i1name": "Berber Vegetable Tagine", "s4.i1desc": "Berber Tagine of vegetables",
+    "s4.i2name": "Kefta Tagine with Eggs", "s4.i2desc": "Tagine of kefta with eggs, fresh tomato, and fries",
+    "s4.i3name": "Beef Tagine with Prunes", "s4.i3desc": "Beef tagine with prunes and almonds",
+    "s4.i4name": "Seafood & Fish Tagine", "s4.i4desc": "Fish tagine with seafood and pepper farandoles",
+    "s4.i5name": "Chicken Tagine with Lemon", "s4.i5desc": "Chicken tagine with lemon, olives, and fries",
+    "s4.i6name": "Camel Meat Tanjia", "s4.i6desc": "Traditional Tanjia of camel meat",
+
+    "s5.title": "Fast Food",
+    "s5.i1name": "Chicken & Cheese Quesadilla", "s5.i1desc": "Quesadilla of chicken and cheese served with fries",
+    "s5.i2name": "Falafel Sandwich", "s5.i2desc": "Falafel sandwich with hummus and fries",
+    "s5.i3name": "Cheeseburger", "s5.i3desc": "Cheeseburger with tomato, salad, pickle, cheddar, served with fries",
+    "s5.i4name": "Crunchy Chicken Burger", "s5.i4desc": "Chicken Crunchy burger served with fries",
+    "s5.i5name": "Grilled Chicken Sandwich", "s5.i5desc": "Grilled chicken sandwich served with fries",
+    "s5.i6name": "Grilled Kofta Sandwich", "s5.i6desc": "Grilled kofta sandwich served with fries",
+
+    "s6.title": "Pizza",
+    "s6.i1name": "Margarita Pizza", "s6.i1desc": "Tomato sauce, mozzarella, black olives",
+    "s6.i2name": "Veggie Pizza", "s6.i2desc": "Tomato sauce, zucchini, eggplant, onions, olives, mozzarella",
+    "s6.i3name": "Sicilian Pizza", "s6.i3desc": "Tomato sauce, tuna, pepper, olive, mozzarella",
+    "s6.i4name": "Royal Chicken Pizza", "s6.i4desc": "Tomato sauce, mozzarella, chicken breast, olives, cherry tomato, onions",
+    "s6.i5name": "4 Cheese Pizza", "s6.i5desc": "Mozzarella, red, blue, goat cheese",
+
+    "s7.title": "Desserts",
+    "s7.i1name": "Cinnamon Orange", "s7.i1desc": "Fresh orange slices with cinnamon",
+    "s7.i2name": "Fresh Fruit Salad", "s7.i2desc": "Assorted fresh seasonal fruits",
+    "s7.i3name": "Nutella Crepe", "s7.i3desc": "Sweet crepe with Nutella",
+    "s7.i4name": "Nutella Banana & Ice Cream Crepe", "s7.i4desc": "Nutella banana crepe served with a scoop of vanilla ice cream",
+    "s7.i5name": "Gazelle Horns (3 pcs)", "s7.i5desc": "Traditional almond paste pastries",
+    "s7.i6name": "Pastilla Style Tiramisu", "s7.i6desc": "Crispy pastilla layers with tiramisu cream",
+
+    "s8.title": "Hot Drinks", "s8.sub": "Boissons chaudes",
+    "s8.i1name": "Black Coffee", "s8.i1desc": "Espresso or black coffee",
+    "s8.i2name": "American Coffee", "s8.i2desc": "Americano",
+    "s8.i3name": "Coffee with Milk", "s8.i3desc": "Café au lait",
+    "s8.i4name": "Moroccan Mint Tea", "s8.i4desc": "Traditional green tea with mint",
+    "s8.i5name": "Hot Chocolate", "s8.i5desc": "Creamy hot cocoa",
+    "s8.i6name": "Lipton Tea", "s8.i6desc": "Black tea bag",
+    "s8.i7name": "Verbena Tea", "s8.i7desc": "Herbal verbena infusion",
+
+    "s9.title": "Cold Drinks", "s9.sub": "Boissons froides",
+    "s9.i1name": "San Miguel 0.0", "s9.i1desc": "Non-alcoholic beer",
+    "s9.i2name": "Soda", "s9.i2desc": "Coca-Cola, Coca Zero, Sprite, Schweppes Lemon",
+    "s9.i3name": "Small Water", "s9.i3desc": "Still water (0.5L)",
+    "s9.i4name": "Large Water", "s9.i4desc": "Still water (1.5L)",
+    "s9.i5name": "Small Sparkling Water", "s9.i5desc": "Sparkling water (0.5L)",
+    "s9.i6name": "Large Sparkling Water", "s9.i6desc": "Sparkling water (1L)",
+
+    "s10.title": "Juices", "s10.sub": "Jus",
+    "s10.i1name": "Fresh Juice", "s10.i1desc": "Orange, Carrot, Banana, Apple, or Pineapple",
+    "s10.i2name": "Avocado Juice", "s10.i2desc": "Fresh avocado smoothie",
+    "s10.i3name": "Mixed Juice", "s10.i3desc": "Blended fruit mix",
+    "s10.i4name": "Mojito", "s10.i4desc": "Refreshing mint & lime drink",
+
+    footer1: "All prices are listed in Moroccan Dirhams (DH).",
+    footer2: "Service charge included."
+  },
+  fr: {
+    "s1.title": "Entrées", "s1.sub": "Starters",
+    "s1.i1name": "Salade marocaine", "s1.i1desc": "Tomate, oignons, concombre, poivron",
+    "s1.i2name": "Assortiment Briouates", "s1.i2desc": "Fromage, viande hachée",
+    "s1.i3name": "Salade taboulé", "s1.i3desc": "Borghol, tomate, poivron, concombre, oignons, menthe, huile d'olive",
+    "s1.i4name": "Aubergines gratin",
+    "s1.i5name": "Babouche aux fruits de mer", "s1.i5desc": "Salade rouge, segments d'agrumes, pomme, ananas, fruits de mer",
+    "s1.i6name": "Tartar d'avocat au quinoa", "s1.i6desc": "Avocat, tomate, oignons, concombre, poivron",
+    "s1.i7name": "Soupe Harira",
+    "s1.i8name": "Pastilla au poulet et aux amandes",
+
+    "s2.title": "Plats principaux", "s2.sub": "Main Dishes",
+    "s2.i1name": "Kebab Kefta", "s2.i1desc": "Riz, légumes sautés, frites",
+    "s2.i2name": "Poulet Kabab", "s2.i2desc": "Riz, légumes sautés, frites",
+    "s2.i3name": "Falafel", "s2.i3desc": "Salade verte, hommus, babaghanouch, sauce tarator",
+    "s2.i4name": "Fatte badinjan", "s2.i4desc": "Aubergine, viande hachée, sauce bolognaise, laban, crouton libanais",
+    "s2.i5name": "Poulet à la crème et aux champignons", "s2.i5desc": "Poulet émincé avec crème et champignons servi avec frites",
+
+    "s3.title": "Couscous",
+    "s3.i1name": "Couscous Poulet (7 Légumes)", "s3.i1desc": "Poulet, sept légumes et oignons caramélisés tfaya",
+    "s3.i2name": "Couscous Bœuf (7 Légumes)", "s3.i2desc": "Bœuf, légumes et oignons caramélisés tfaya",
+    "s3.i3name": "Couscous Royal", "s3.i3desc": "Couscous royal aux légumes, poulet, bœuf et oignons caramélisés tfaya",
+    "s3.i4name": "Couscous 7 Légumes", "s3.i4desc": "Sept légumes et oignons caramélisés tfaya",
+
+    "s4.title": "Tajines",
+    "s4.i1name": "Tajine berbère de légumes", "s4.i1desc": "Tajine berbère aux légumes de saison",
+    "s4.i2name": "Tajine de kefta aux œufs", "s4.i2desc": "Kefta avec œufs, tomates fraîches et frites",
+    "s4.i3name": "Tajine de bœuf aux pruneaux", "s4.i3desc": "Bœuf mijoté aux pruneaux et amandes",
+    "s4.i4name": "Tajine poisson et fruits de mer", "s4.i4desc": "Poisson avec fruits de mer et farandole de poivrons",
+    "s4.i5name": "Tajine de poulet au citron et olives", "s4.i5desc": "Poulet au citron confit, olives et frites",
+    "s4.i6name": "Tanjia de viande de chameau", "s4.i6desc": "Tanjia marocaine traditionnelle à la viande de chameau",
+
+    "s5.title": "Fast food",
+    "s5.i1name": "Quesadilla au poulet et fromage", "s5.i1desc": "Quesadilla poulet et fromage servie avec frites",
+    "s5.i2name": "Sandwich Falafel", "s5.i2desc": "Sandwich falafel avec houmous et frites",
+    "s5.i3name": "Cheeseburger", "s5.i3desc": "Cheeseburger avec tomate, salade, cornichon, cheddar et frites",
+    "s5.i4name": "Crunchy burger de poulet", "s5.i4desc": "Burger de poulet croustillant servi avec frites",
+    "s5.i5name": "Sandwich poulet grillé", "s5.i5desc": "Sandwich au poulet grillé servi avec frites",
+    "s5.i6name": "Sandwich Kofta grillé", "s5.i6desc": "Sandwich à la kefta grillée servi avec frites",
+
+    "s6.title": "Pizza",
+    "s6.i1name": "Pizza Margarita", "s6.i1desc": "Sauce tomate, mozzarella, olives noires",
+    "s6.i2name": "Pizza Veggie", "s6.i2desc": "Sauce tomate, courgettes, aubergines, oignons, olives, mozzarella",
+    "s6.i3name": "Pizza Sicilienne", "s6.i3desc": "Sauce tomate, thon, poivron, olive, mozzarella",
+    "s6.i4name": "Pizza Royal Chicken", "s6.i4desc": "Sauce tomate, mozzarella, blanc de poulet, olives, tomate cerise, oignons",
+    "s6.i5name": "Pizza 4 Fromages", "s6.i5desc": "Mozzarella, rouge, bleu, chèvre",
+
+    "s7.title": "Desserts",
+    "s7.i1name": "Orange à la cannelle", "s7.i1desc": "Tranches d'orange fraîche à la cannelle",
+    "s7.i2name": "Salade de fruits frais", "s7.i2desc": "Fruits frais de saison",
+    "s7.i3name": "Crêpe Nutella", "s7.i3desc": "Crêpe gourmande au Nutella",
+    "s7.i4name": "Crêpe Nutella banane et glace vanille", "s7.i4desc": "Crêpe Nutella et banane servie avec une boule de glace vanille",
+    "s7.i5name": "Corne de gazelle (3 pièces)", "s7.i5desc": "Pâtisserie marocaine traditionnelle aux amandes",
+    "s7.i6name": "Tiramisu façon pastilla", "s7.i6desc": "Feuilles de pastilla croustillantes à la crème tiramisu",
+
+    "s8.title": "Boissons chaudes", "s8.sub": "Hot drinks",
+    "s8.i1name": "Café noir", "s8.i1desc": "Espresso ou café noir",
+    "s8.i2name": "Café américain", "s8.i2desc": "Café allongé",
+    "s8.i3name": "Café au lait", "s8.i3desc": "Café au lait chaud",
+    "s8.i4name": "Thé marocain", "s8.i4desc": "Thé vert traditionnel à la menthe",
+    "s8.i5name": "Chocolat chaud", "s8.i5desc": "Chocolat chaud crémeux",
+    "s8.i6name": "Lipton", "s8.i6desc": "Thé noir Lipton",
+    "s8.i7name": "Verveine", "s8.i7desc": "Infusion de verveine",
+
+    "s9.title": "Boissons froides", "s9.sub": "Cold drinks",
+    "s9.i1name": "San Miguel 0.0", "s9.i1desc": "Bière sans alcool",
+    "s9.i2name": "Soda", "s9.i2desc": "Coca, Coca Zero, Sprite, Schweppes citron",
+    "s9.i3name": "Petite bouteille d'eau", "s9.i3desc": "Eau minérale plate (0.5L)",
+    "s9.i4name": "Grande bouteille d'eau", "s9.i4desc": "Eau minérale plate (1.5L)",
+    "s9.i5name": "Eau pétillante", "s9.i5desc": "Eau gazeuse (0.5L)",
+    "s9.i6name": "Eau pétillante grand", "s9.i6desc": "Eau gazeuse (1L)",
+
+    "s10.title": "Jus", "s10.sub": "Juices",
+    "s10.i1name": "Jus frais", "s10.i1desc": "Orange, Carotte, Banane, Pomme, Ananas",
+    "s10.i2name": "Jus d'avocat", "s10.i2desc": "Onctueux jus d'avocat frais",
+    "s10.i3name": "Jus mixte", "s10.i3desc": "Melange de fruits de saison",
+    "s10.i4name": "Mojito", "s10.i4desc": "Boisson rafraîchissante à la menthe et citron vert",
+
+    footer1: "Tous nos prix sont exprimés en Dirhams Marocains (DH).",
+    footer2: "Service compris."
+  },
+  es: {
+    "s1.title": "Entrantes", "s1.sub": "Entrées",
+    "s1.i1name": "Ensalada marroquí", "s1.i1desc": "Tomate, cebolla, pepino, pimiento",
+    "s1.i2name": "Surtido de Briouats", "s1.i2desc": "Queso, carne picada",
+    "s1.i3name": "Ensalada tabulé", "s1.i3desc": "Burgol, tomate, pimiento, pepino, cebolla, menta, aceite de oliva",
+    "s1.i4name": "Berenjenas al gratén",
+    "s1.i5name": "Ensalada Babouche con mariscos", "s1.i5desc": "Ensalada roja, gajos de cítricos, manzana, piña, marisco",
+    "s1.i6name": "Tartar de aguacate con quinoa", "s1.i6desc": "Aguacate, tomate, cebolla, pepino, pimiento",
+    "s1.i7name": "Sopa Harira",
+    "s1.i8name": "Pastilla de pollo y almendras",
+
+    "s2.title": "Platos Principales", "s2.sub": "Plats principaux",
+    "s2.i1name": "Kebab Kefta", "s2.i1desc": "Arroz, verduras salteadas, patatas fritas",
+    "s2.i2name": "Kebab de Pollo", "s2.i2desc": "Arroz, verduras salteadas, patatas fritas",
+    "s2.i3name": "Falafel", "s2.i3desc": "Ensalada verde, hummus, babaganush, salsa tarator",
+    "s2.i4name": "Fatteh de berenjena", "s2.i4desc": "Berenjena, carne picada, salsa boloñesa, laban, picatostes libaneses",
+    "s2.i5name": "Pollo a la crema y champiñones", "s2.i5desc": "Pollo desmenuzado con crema y champiñones servido con patatas fritas",
+
+    "s3.title": "Cuscús",
+    "s3.i1name": "Cuscús de Pollo (7 Verduras)", "s3.i1desc": "Cuscús con pollo, 7 verduras y cebollas caramelizadas tfaya",
+    "s3.i2name": "Cuscús de Ternera (7 Verduras)", "s3.i2desc": "Cuscús con ternera, verduras y cebollas caramelizadas tfaya",
+    "s3.i3name": "Cuscús Real", "s3.i3desc": "Cuscús real de verduras, pollo, ternera y cebollas caramelizadas tfaya",
+    "s3.i4name": "Cuscús de 7 Verduras", "s3.i4desc": "Cuscús con 7 verduras y cebollas caramelizadas tfaya",
+
+    "s4.title": "Tajines",
+    "s4.i1name": "Tajine bereber de verduras", "s4.i1desc": "Tajine tradicional bereber de verduras",
+    "s4.i2name": "Tajine de kefta con huevos", "s4.i2desc": "Tajine de kefta con huevos, tomate fresco y patatas fritas",
+    "s4.i3name": "Tajine de ternera con ciruelas", "s4.i3desc": "Tajine de ternera con ciruelas pasas y almendras",
+    "s4.i4name": "Tajine de pescado y mariscos", "s4.i4desc": "Tajine de pescado con mariscos y pimientos variados",
+    "s4.i5name": "Tajine de pollo con limón y aceitunas", "s4.i5desc": "Tajine de pollo con limón encurtido, aceitunas y patatas fritas",
+    "s4.i6name": "Tanjia de carne de camello", "s4.i6desc": "Tanjia marroquí tradicional de carne de camello",
+
+    "s5.title": "Comida Rápida",
+    "s5.i1name": "Quesadilla de pollo y queso", "s5.i1desc": "Quesadilla de pollo y queso servida con patatas fritas",
+    "s5.i2name": "Sándwich de Falafel", "s5.i2desc": "Sándwich de falafel con hummus y patatas fritas",
+    "s5.i3name": "Hamburguesa con queso", "s5.i3desc": "Cheeseburger con tomate, ensalada, pepinillo, cheddar y patatas fritas",
+    "s5.i4name": "Hamburguesa de pollo crujiente", "s5.i4desc": "Hamburguesa de pollo crujiente servida con patatas fritas",
+    "s5.i5name": "Sándwich de pollo a la plancha", "s5.i5desc": "Sándwich de pollo a la plancha servido con patatas fritas",
+    "s5.i6name": "Sándwich de Kofta a la plancha", "s5.i6desc": "Sándwich de kofta a la plancha servido con patatas fritas",
+
+    "s6.title": "Pizza",
+    "s6.i1name": "Pizza Margarita", "s6.i1desc": "Salsa de tomate, mozzarella, aceitunas negras",
+    "s6.i2name": "Pizza Vegetariana", "s6.i2desc": "Salsa de tomate, calabacín, berenjena, cebolla, aceitunas, mozzarella",
+    "s6.i3name": "Pizza Siciliana", "s6.i3desc": "Salsa de tomate, atún, pimiento, aceituna, mozzarella",
+    "s6.i4name": "Pizza Royal Chicken", "s6.i4desc": "Salsa de tomate, mozzarella, pechuga de pollo, aceitunas, tomate cherry, cebolla",
+    "s6.i5name": "Pizza 4 Quesos", "s6.i5desc": "Mozzarella, queso rojo, azul, de cabra",
+
+    "s7.title": "Postres",
+    "s7.i1name": "Naranja a la canela", "s7.i1desc": "Rodajas de naranja fresca espolvoreadas con canela",
+    "s7.i2name": "Ensalada de frutas frescas", "s7.i2desc": "Surtido de frutas frescas de temporada",
+    "s7.i3name": "Crepe de Nutella", "s7.i3desc": "Crepe dulce rellena de Nutella",
+    "s7.i4name": "Crepe de Nutella, plátano y helado", "s7.i4desc": "Crepe de Nutella y plátano servida con una bola de helado de vainilla",
+    "s7.i5name": "Cuernos de gazela (3 ud)", "s7.i5desc": "Dulce tradicional marroquí relleno de almendra",
+    "s7.i6name": "Tiramisú estilo pastilla", "s7.i6desc": "Capas crujientes de pastilla con crema de tiramisú",
+
+    "s8.title": "Bebidas Calientes", "s8.sub": "Boissons chaudes",
+    "s8.i1name": "Café solo", "s8.i1desc": "Café espresso o negro",
+    "s8.i2name": "Café americano", "s8.i2desc": "Café largo estilo americano",
+    "s8.i3name": "Café con leche", "s8.i3desc": "Café con leche caliente",
+    "s8.i4name": "Té marroquí", "s8.i4desc": "Té verde tradicional con menta fresca",
+    "s8.i5name": "Chocolate caliente", "s8.i5desc": "Chocolate caliente cremoso",
+    "s8.i6name": "Té Lipton", "s8.i6desc": "Té negro en bolsita",
+    "s8.i7name": "María Luisa (Luisa)", "s8.i7desc": "Infusión natural de yerbaluisa",
+
+    "s9.title": "Bebidas Frías", "s9.sub": "Boissons froides",
+    "s9.i1name": "San Miguel 0.0", "s9.i1desc": "Cerveza sin alcohol",
+    "s9.i2name": "Refresco", "s9.i2desc": "Coca-Cola, Coca Zero, Sprite, Schweppes Limón",
+    "s9.i3name": "Agua pequeña", "s9.i3desc": "Agua mineral natural (0.5L)",
+    "s9.i4name": "Agua grande", "s9.i4desc": "Agua mineral natural (1.5L)",
+    "s9.i5name": "Agua con gas pequeña", "s9.i5desc": "Agua con gas (0.5L)",
+    "s9.i6name": "Agua con gas grande", "s9.i6desc": "Agua con gas (1L)",
+
+    "s10.title": "Zumos", "s10.sub": "Jus",
+    "s10.i1name": "Zumo natural", "s10.i1desc": "Naranja, Zanahoria, Plátano, Manzana o Piña",
+    "s10.i2name": "Zumo de aguacate", "s10.i2desc": "Batido cremoso de aguacate fresco",
+    "s10.i3name": "Zumo mixto", "s10.i3desc": "Mezcla de frutas variadas",
+    "s10.i4name": "Mojito", "s10.i4desc": "Bebida refrescante de menta y lima",
+
+    footer1: "Todos los precios están indicados en Dirhams Marroquíes (DH).",
+    footer2: "Servicio incluido."
+  }
+};
+
+function setLang(lang){
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (translations[lang] && translations[lang][key] !== undefined){
+      el.innerHTML = translations[lang][key];
+    }
+  });
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === lang);
+  });
+  document.documentElement.lang = lang;
+}
+
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => setLang(btn.dataset.lang));
+});
+</script>
+
+</body>
+</html>
