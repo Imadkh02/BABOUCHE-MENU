@@ -350,10 +350,243 @@
   }
   .social a:hover{opacity:1;}
   .social svg{width:19px;height:19px;}
+
+  /* ---- WhatsApp ordering / quantity controls ---- */
+  .modal-name-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin-bottom:8px;
+  }
+  .modal-name-row .modal-name{
+    margin:0;
+    flex:1;
+    min-width:0;
+  }
+  .modal-qty-wrap{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    flex-shrink:0;
+  }
+  .modal-qty-label{
+    font-size:10px;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:.4px;
+  }
+  .qty-step-btn{
+    width:30px;
+    height:30px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--paper);
+    color:var(--spruce);
+    font-size:18px;
+    line-height:1;
+    font-weight:500;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:0;
+    touch-action:manipulation;
+  }
+  .qty-step-btn:active{
+    background:rgba(62,82,69,.10);
+    transform:scale(.96);
+  }
+  .qty-input{
+    width:42px;
+    height:30px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--paper);
+    color:var(--spruce);
+    text-align:center;
+    font-family:'Work Sans',sans-serif;
+    font-size:14px;
+    font-weight:500;
+    outline:none;
+    -moz-appearance:textfield;
+  }
+  .qty-input::-webkit-outer-spin-button,
+  .qty-input::-webkit-inner-spin-button{
+    -webkit-appearance:none;
+    margin:0;
+  }
+  .qty-input:focus{
+    border-color:var(--spruce);
+    box-shadow:0 0 0 2px rgba(62,82,69,.10);
+  }
+
+  .modal-add-btn{
+    display:block;
+    margin:18px 0 0 auto;
+    min-width:86px;
+    height:38px;
+    padding:0 16px;
+    border:0;
+    border-radius:10px;
+    background:var(--spruce);
+    color:#fff;
+    font-family:'Work Sans',sans-serif;
+    font-size:13px;
+    font-weight:500;
+    cursor:pointer;
+    transition:transform .12s ease, opacity .12s ease;
+  }
+  .modal-add-btn:active{transform:scale(.97);}
+  .modal-add-btn:disabled{opacity:.55;cursor:not-allowed;}
+
+  .cart-bar{
+    position:fixed;
+    left:50%;
+    bottom:14px;
+    transform:translateX(-50%) translateY(130px);
+    width:min(592px, calc(100% - 24px));
+    background:rgba(251,249,244,.97);
+    backdrop-filter:blur(12px);
+    border:1px solid var(--line);
+    border-radius:16px;
+    box-shadow:0 10px 30px rgba(43,42,38,.18);
+    padding:12px;
+    z-index:900;
+    opacity:0;
+    pointer-events:none;
+    transition:transform .2s ease, opacity .2s ease;
+  }
+  .cart-bar.open{
+    transform:translateX(-50%) translateY(0);
+    opacity:1;
+    pointer-events:auto;
+  }
+  .cart-summary{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:9px;
+  }
+  .cart-title{
+    font-family:'Fraunces',serif;
+    color:var(--spruce);
+    font-size:17px;
+    font-weight:500;
+  }
+  .cart-total{
+    color:var(--lingon);
+    font-size:14px;
+    font-weight:500;
+    white-space:nowrap;
+  }
+  .cart-actions{
+    display:flex;
+    gap:8px;
+    align-items:center;
+  }
+  .table-input{
+    flex:1;
+    min-width:0;
+    height:42px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    background:#fff;
+    color:var(--ink);
+    padding:0 12px;
+    font-family:'Work Sans',sans-serif;
+    font-size:14px;
+    outline:none;
+  }
+  .table-input:focus{
+    border-color:var(--spruce);
+    box-shadow:0 0 0 2px rgba(62,82,69,.10);
+  }
+  .whatsapp-btn{
+    height:42px;
+    border:0;
+    border-radius:10px;
+    padding:0 15px;
+    background:var(--spruce);
+    color:#fff;
+    font-family:'Work Sans',sans-serif;
+    font-size:13px;
+    font-weight:500;
+    cursor:pointer;
+    white-space:nowrap;
+    transition:transform .12s ease, opacity .12s ease;
+  }
+  .whatsapp-btn:active{
+    transform:scale(.98);
+  }
+  .whatsapp-btn:disabled{
+    opacity:.45;
+    cursor:not-allowed;
+  }
+  .cart-note{
+    font-size:10.5px;
+    color:var(--muted);
+    margin-top:7px;
+    text-align:center;
+  }
+  @media (max-width:520px){
+    .item{
+      gap:8px;
+    }
+    .item-main{
+      min-width:0;
+    }
+    .item-name{
+      font-size:15px;
+    }
+    .item-price{
+      font-size:12px;
+    }
+    .modal-qty-label{
+      display:none;
+    }
+    .modal-qty-input{
+      width:44px;
+    }
+    .cart-actions{
+      flex-wrap:wrap;
+    }
+    .table-input{
+      width:100%;
+      flex-basis:100%;
+    }
+    .whatsapp-btn{
+      width:100%;
+    }
+  }
+
 </style>
 </head>
 <body>
 <div class="wrap">
+
+
+  <!-- WhatsApp Order Cart -->
+  <div class="cart-bar" id="cartBar">
+    <div class="cart-summary">
+      <div class="cart-title" id="cartTitle">Your order</div>
+      <div class="cart-total" id="cartTotal">0 dh</div>
+    </div>
+    <div class="cart-actions">
+      <input
+        id="tableNumber"
+        class="table-input"
+        type="text"
+        inputmode="numeric"
+        maxlength="10"
+        placeholder="Table number"
+        aria-label="Table number"
+      >
+      <button id="whatsappBtn" class="whatsapp-btn" type="button">Order on WhatsApp</button>
+    </div>
+    <div class="cart-note" id="cartNote">Enter your table number before sending.</div>
+  </div>
 
   <header>
     <!-- Language buttons inside header -->
@@ -409,54 +642,54 @@
     <div class="section-title" data-i18n="s1.title">Entrées</div>
     <div class="section-sub" data-i18n="s1.sub">Starters</div>
 
-    <div class="item" data-img="images/salade-marocaine.jpg">
+    <div class="item" data-qty="0" data-img="images/salade-marocaine.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s1.i1name">Salade marocaine</div>
         <div class="item-desc" data-i18n="s1.i1desc">Tomato, onions, cucumber, pepper</div>
       </div>
       <div class="item-price">40 dh</div>
     </div>
-    <div class="item" data-img="images/assortiment-briouates.jpg">
+    <div class="item" data-qty="0" data-img="images/assortiment-briouates.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s1.i2name">Assortiment Briouates</div>
         <div class="item-desc" data-i18n="s1.i2desc">Cheese, minced meat</div>
       </div>
       <div class="item-price">55 dh</div>
     </div>
-    <div class="item" data-img="images/salade-taboule.jpg">
+    <div class="item" data-qty="0" data-img="images/salade-taboule.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s1.i3name">Salade taboulé</div>
         <div class="item-desc" data-i18n="s1.i3desc">Borghol, tomato, pepper, cucumber, onions, mint, olive oil</div>
       </div>
       <div class="item-price">40 dh</div>
     </div>
-    <div class="item" data-img="images/aubergines-gratin.jpg">
+    <div class="item" data-qty="0" data-img="images/aubergines-gratin.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s1.i4name">Aubergines gratin</div>
       </div>
       <div class="item-price">50 dh</div>
     </div>
-    <div class="item" data-img="images/babouche-aux-fruits-de-mer.jpg">
+    <div class="item" data-qty="0" data-img="images/babouche-aux-fruits-de-mer.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s1.i5name">Babouche aux fruits de mer</div>
         <div class="item-desc" data-i18n="s1.i5desc">Red salad, citrus segments, apple, pineapple, seafood</div>
       </div>
       <div class="item-price">60 dh</div>
     </div>
-    <div class="item" data-img="images/tartar-d-avocat-au-quinoa.jpg">
+    <div class="item" data-qty="0" data-img="images/tartar-d-avocat-au-quinoa.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s1.i6name">Tartar d'avocat au quinoa</div>
         <div class="item-desc" data-i18n="s1.i6desc">Avocado, tomato, onions, cucumber, pepper</div>
       </div>
       <div class="item-price">55 dh</div>
     </div>
-    <div class="item" data-img="images/soupe-harira.jpg">
+    <div class="item" data-qty="0" data-img="images/soupe-harira.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s1.i7name">Soupe Harira</div>
       </div>
       <div class="item-price">30 dh</div>
     </div>
-    <div class="item" data-img="images/pastilla-au-poulet-et-aux-amandes.jpg">
+    <div class="item" data-qty="0" data-img="images/pastilla-au-poulet-et-aux-amandes.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s1.i8name">Pastilla au poulet et aux amandes</div>
       </div>
@@ -471,35 +704,35 @@
     <div class="section-title" data-i18n="s2.title">Plats principaux</div>
     <div class="section-sub" data-i18n="s2.sub">Main Dishes</div>
 
-    <div class="item" data-img="images/kebab-kefta.jpg">
+    <div class="item" data-qty="0" data-img="images/kebab-kefta.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s2.i1name">Kebab Kefta</div>
         <div class="item-desc" data-i18n="s2.i1desc">Rice, sauteed vegetables, fries</div>
       </div>
       <div class="item-price">85 dh</div>
     </div>
-    <div class="item" data-img="images/poulet-kabab.jpg">
+    <div class="item" data-qty="0" data-img="images/poulet-kabab.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s2.i2name">Poulet Kabab</div>
         <div class="item-desc" data-i18n="s2.i2desc">Rice, sauteed vegetables, fries</div>
       </div>
       <div class="item-price">85 dh</div>
     </div>
-    <div class="item" data-img="images/falafel.jpg">
+    <div class="item" data-qty="0" data-img="images/falafel.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s2.i3name">Falafel</div>
         <div class="item-desc" data-i18n="s2.i3desc">Green salad, hummus, babaghanouch, tarator sauce</div>
       </div>
       <div class="item-price">75 dh</div>
     </div>
-    <div class="item" data-img="images/fatte-badinjan.jpg">
+    <div class="item" data-qty="0" data-img="images/fatte-badinjan.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s2.i4name">Fatte badinjan</div>
         <div class="item-desc" data-i18n="s2.i4desc">Aubergine, minced meat, bolognese sauce, laban, Lebanese crouton</div>
       </div>
       <div class="item-price">75 dh</div>
     </div>
-    <div class="item" data-img="images/poulet-a-la-creme-et-aux-champignons.jpg">
+    <div class="item" data-qty="0" data-img="images/poulet-a-la-creme-et-aux-champignons.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s2.i5name">Poulet à la crème et aux champignons</div>
         <div class="item-desc" data-i18n="s2.i5desc">Minced chicken with creme and mushrooms with fries</div>
@@ -514,28 +747,28 @@
   <section id="couscous">
     <div class="section-title" data-i18n="s3.title">Couscous</div>
 
-    <div class="item" data-img="images/couscous-poulet-and-7-legumes.jpg">
+    <div class="item" data-qty="0" data-img="images/couscous-poulet-and-7-legumes.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s3.i1name">Couscous Poulet &amp; 7 Légumes</div>
         <div class="item-desc" data-i18n="s3.i1desc">Couscous with chicken, seven vegetables and tfaya caramelized onions</div>
       </div>
       <div class="item-price">85 dh</div>
     </div>
-    <div class="item" data-img="images/couscous-boeuf-and-7-legumes.jpg">
+    <div class="item" data-qty="0" data-img="images/couscous-boeuf-and-7-legumes.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s3.i2name">Couscous Bœuf &amp; 7 Légumes</div>
         <div class="item-desc" data-i18n="s3.i2desc">Couscous with beef, vegetables and tfaya caramelized onions</div>
       </div>
       <div class="item-price">85 dh</div>
     </div>
-    <div class="item" data-img="images/couscous-royal.jpg">
+    <div class="item" data-qty="0" data-img="images/couscous-royal.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s3.i3name">Couscous Royal</div>
         <div class="item-desc" data-i18n="s3.i3desc">Royal couscous of vegetables, chicken and beef, and tfaya caramelized onions</div>
       </div>
       <div class="item-price">90 dh</div>
     </div>
-    <div class="item" data-img="images/couscous-7-legumes.jpg">
+    <div class="item" data-qty="0" data-img="images/couscous-7-legumes.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s3.i4name">Couscous 7 Légumes</div>
         <div class="item-desc" data-i18n="s3.i4desc">Couscous with 7 vegetables and tfaya caramelized onions</div>
@@ -550,42 +783,42 @@
   <section id="tajines">
     <div class="section-title" data-i18n="s4.title">Tajines</div>
 
-    <div class="item" data-img="images/tajine-berbere-de-legumes.jpg">
+    <div class="item" data-qty="0" data-img="images/tajine-berbere-de-legumes.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s4.i1name">Tajine berbère de légumes</div>
         <div class="item-desc" data-i18n="s4.i1desc">Berber Tagine of vegetables</div>
       </div>
       <div class="item-price">60 dh</div>
     </div>
-    <div class="item" data-img="images/tajine-de-kefta-aux-oeufs.jpg">
+    <div class="item" data-qty="0" data-img="images/tajine-de-kefta-aux-oeufs.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s4.i2name">Tajine de kefta aux œufs</div>
         <div class="item-desc" data-i18n="s4.i2desc">Tajine of kefta with eggs and fresh tomato and fries</div>
       </div>
       <div class="item-price">75 dh</div>
     </div>
-    <div class="item" data-img="images/tajine-de-boeuf-aux-pruneaux.jpg">
+    <div class="item" data-qty="0" data-img="images/tajine-de-boeuf-aux-pruneaux.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s4.i3name">Tajine de bœuf aux pruneaux</div>
         <div class="item-desc" data-i18n="s4.i3desc">Beef tagine with prunes and almonds</div>
       </div>
       <div class="item-price">85 dh</div>
     </div>
-    <div class="item" data-img="images/tajine-poisson-et-fruits-de-mer.jpg">
+    <div class="item" data-qty="0" data-img="images/tajine-poisson-et-fruits-de-mer.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s4.i4name">Tajine poisson et fruits de mer</div>
         <div class="item-desc" data-i18n="s4.i4desc">Fish tagine with seafood and pepper farandoles</div>
       </div>
       <div class="item-price">80 dh</div>
     </div>
-    <div class="item" data-img="images/tajine-de-poulet-au-citron-et-olives.jpg">
+    <div class="item" data-qty="0" data-img="images/tajine-de-poulet-au-citron-et-olives.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s4.i5name">Tajine de poulet au citron et olives</div>
         <div class="item-desc" data-i18n="s4.i5desc">Chicken tagine with lemon and olives and fries</div>
       </div>
       <div class="item-price">80 dh</div>
     </div>
-    <div class="item" data-img="images/tanjia-de-viande-de-chameau.jpg">
+    <div class="item" data-qty="0" data-img="images/tanjia-de-viande-de-chameau.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s4.i6name">Tanjia de viande de chameau</div>
         <div class="item-desc" data-i18n="s4.i6desc">Tanjia of camel meat</div>
@@ -600,42 +833,42 @@
   <section id="fastfood">
     <div class="section-title" data-i18n="s5.title">Fast food</div>
 
-    <div class="item" data-img="images/quesadilla-au-poulet-et-fromage.jpg">
+    <div class="item" data-qty="0" data-img="images/quesadilla-au-poulet-et-fromage.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s5.i1name">Quesadilla au poulet et fromage</div>
         <div class="item-desc" data-i18n="s5.i1desc">Qessadilla of chicken and cheese with fries</div>
       </div>
       <div class="item-price">70 dh</div>
     </div>
-    <div class="item" data-img="images/sandwich-falafel.jpg">
+    <div class="item" data-qty="0" data-img="images/sandwich-falafel.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s5.i2name">Sandwich Falafel</div>
         <div class="item-desc" data-i18n="s5.i2desc">Falafel sandwich with hummus and fries</div>
       </div>
       <div class="item-price">65 dh</div>
     </div>
-    <div class="item" data-img="images/cheeseburger.jpg">
+    <div class="item" data-qty="0" data-img="images/cheeseburger.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s5.i3name">Cheeseburger</div>
         <div class="item-desc" data-i18n="s5.i3desc">Cheeseburger with tomato, salad, pickle, cheddar with fries</div>
       </div>
       <div class="item-price">60 dh</div>
     </div>
-    <div class="item" data-img="images/crunchy-burger-de-poulet.jpg">
+    <div class="item" data-qty="0" data-img="images/crunchy-burger-de-poulet.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s5.i4name">Crunchy burger de poulet</div>
         <div class="item-desc" data-i18n="s5.i4desc">Chicken Crunchy burger with fries</div>
       </div>
       <div class="item-price">60 dh</div>
     </div>
-    <div class="item" data-img="images/sandwich-poulet-grille.jpg">
+    <div class="item" data-qty="0" data-img="images/sandwich-poulet-grille.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s5.i5name">Sandwich poulet grillé</div>
         <div class="item-desc" data-i18n="s5.i5desc">Grilled Chicken sandwich with fries</div>
       </div>
       <div class="item-price">60 dh</div>
     </div>
-    <div class="item" data-img="images/sandwich-kofta-grille.jpg">
+    <div class="item" data-qty="0" data-img="images/sandwich-kofta-grille.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s5.i6name">Sandwich Kofta grillé</div>
         <div class="item-desc" data-i18n="s5.i6desc">Grilled Kofta sandwich with fries</div>
@@ -650,35 +883,35 @@
   <section id="pizza">
     <div class="section-title" data-i18n="s6.title">Pizza</div>
 
-    <div class="item" data-img="images/pizza-margarita.jpg">
+    <div class="item" data-qty="0" data-img="images/pizza-margarita.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s6.i1name">Pizza Margarita</div>
         <div class="item-desc" data-i18n="s6.i1desc">Tomato sauce, mozzarella, black olives</div>
       </div>
       <div class="item-price">50 dh</div>
     </div>
-    <div class="item" data-img="images/pizza-veggie.jpg">
+    <div class="item" data-qty="0" data-img="images/pizza-veggie.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s6.i2name">Pizza Veggie</div>
         <div class="item-desc" data-i18n="s6.i2desc">Tomato sauce, zucchini, eggplant, onions, olives, mozzarella</div>
       </div>
       <div class="item-price">60 dh</div>
     </div>
-    <div class="item" data-img="images/pizza-sicilienne.jpg">
+    <div class="item" data-qty="0" data-img="images/pizza-sicilienne.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s6.i3name">Pizza Sicilienne</div>
         <div class="item-desc" data-i18n="s6.i3desc">Tomato sauce, tuna, pepper, olive, mozzarella</div>
       </div>
       <div class="item-price">60 dh</div>
     </div>
-    <div class="item" data-img="images/pizza-royal-chicken.jpg">
+    <div class="item" data-qty="0" data-img="images/pizza-royal-chicken.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s6.i4name">Pizza Royal Chicken</div>
         <div class="item-desc" data-i18n="s6.i4desc">Tomato sauce, mozzarella, chicken breast, olives, cherry tomato, onions</div>
       </div>
       <div class="item-price">60 dh</div>
     </div>
-    <div class="item" data-img="images/pizza-4-fromages.jpg">
+    <div class="item" data-qty="0" data-img="images/pizza-4-fromages.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s6.i5name">Pizza 4 Fromages</div>
         <div class="item-desc" data-i18n="s6.i5desc">Mozzarella, red, blue, goats</div>
@@ -693,41 +926,41 @@
   <section id="desserts">
     <div class="section-title" data-i18n="s7.title">Desserts</div>
 
-    <div class="item" data-img="images/orange-a-la-cannelle.jpg">
+    <div class="item" data-qty="0" data-img="images/orange-a-la-cannelle.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s7.i1name">Orange à la cannelle</div>
         <div class="item-desc" data-i18n="s7.i1desc">Cinnamon orange</div>
       </div>
       <div class="item-price">30 dh</div>
     </div>
-    <div class="item" data-img="images/salade-de-fruits-frais.jpg">
+    <div class="item" data-qty="0" data-img="images/salade-de-fruits-frais.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s7.i2name">Salade de fruits frais</div>
         <div class="item-desc" data-i18n="s7.i2desc">Fresh Fruit salad</div>
       </div>
       <div class="item-price">35 dh</div>
     </div>
-    <div class="item" data-img="images/crepe-nutella.jpg">
+    <div class="item" data-qty="0" data-img="images/crepe-nutella.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s7.i3name">Crêpe Nutella</div>
       </div>
       <div class="item-price">30 dh</div>
     </div>
-    <div class="item" data-img="images/crepe-nutella-banane-et-boule-de-glace-vanille.jpg">
+    <div class="item" data-qty="0" data-img="images/crepe-nutella-banane-et-boule-de-glace-vanille.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s7.i4name">Crêpe Nutella banane et boule de glace vanille</div>
         <div class="item-desc" data-i18n="s7.i4desc">Nutella banana crepe with vanilla ice cream</div>
       </div>
       <div class="item-price">50 dh</div>
     </div>
-    <div class="item" data-img="images/corne-de-gazelle-3-pieces.jpg">
+    <div class="item" data-qty="0" data-img="images/corne-de-gazelle-3-pieces.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s7.i5name">Corne de gazelle (3 pièces)</div>
         <div class="item-desc" data-i18n="s7.i5desc">Gazelle horn (3 pieces)</div>
       </div>
       <div class="item-price">35 dh</div>
     </div>
-    <div class="item" data-img="images/tiramisu-facon-pastilla.jpg">
+    <div class="item" data-qty="0" data-img="images/tiramisu-facon-pastilla.jpg">
       <div class="item-main">
         <div class="item-name" data-i18n="s7.i6name">Tiramisu façon pastilla</div>
         <div class="item-desc" data-i18n="s7.i6desc">Tiramisu style pastilla</div>
@@ -743,13 +976,13 @@
     <div class="section-title" data-i18n="s8.title">Boissons chaudes</div>
     <div class="section-sub" data-i18n="s8.sub">Hot drinks</div>
 
-    <div class="item" data-img="images/cafe-noir.jpg"><div class="item-main"><div class="item-name" data-i18n="s8.i1name">Café noir</div><div class="item-desc" data-i18n="s8.i1desc">Black coffee</div></div><div class="item-price">17 dh</div></div>
-    <div class="item" data-img="images/cafe-americain.jpg"><div class="item-main"><div class="item-name" data-i18n="s8.i2name">Café américain</div><div class="item-desc" data-i18n="s8.i2desc">American coffee</div></div><div class="item-price">20 dh</div></div>
-    <div class="item" data-img="images/cafe-au-lait.jpg"><div class="item-main"><div class="item-name" data-i18n="s8.i3name">Café au lait</div><div class="item-desc" data-i18n="s8.i3desc">Coffee with milk</div></div><div class="item-price">20 dh</div></div>
-    <div class="item" data-img="images/the-marocain.jpg"><div class="item-main"><div class="item-name" data-i18n="s8.i4name">Thé marocain</div><div class="item-desc" data-i18n="s8.i4desc">Moroccan Tea</div></div><div class="item-price">19 dh</div></div>
-    <div class="item" data-img="images/chocolat-chaud.jpg"><div class="item-main"><div class="item-name" data-i18n="s8.i5name">Chocolat chaud</div><div class="item-desc" data-i18n="s8.i5desc">Hot chocolate</div></div><div class="item-price">20 dh</div></div>
-    <div class="item" data-img="images/lipton.jpg"><div class="item-main"><div class="item-name" data-i18n="s8.i6name">Lipton</div></div><div class="item-price">20 dh</div></div>
-    <div class="item" data-img="images/verveine.jpg"><div class="item-main"><div class="item-name" data-i18n="s8.i7name">Verveine</div><div class="item-desc" data-i18n="s8.i7desc">Verbena</div></div><div class="item-price">20 dh</div></div>
+    <div class="item" data-qty="0" data-img="images/cafe-noir.jpg"><div class="item-main"><div class="item-name" data-i18n="s8.i1name">Café noir</div><div class="item-desc" data-i18n="s8.i1desc">Black coffee</div></div><div class="item-price">17 dh</div></div>
+    <div class="item" data-qty="0" data-img="images/cafe-americain.jpg"><div class="item-main"><div class="item-name" data-i18n="s8.i2name">Café américain</div><div class="item-desc" data-i18n="s8.i2desc">American coffee</div></div><div class="item-price">20 dh</div></div>
+    <div class="item" data-qty="0" data-img="images/cafe-au-lait.jpg"><div class="item-main"><div class="item-name" data-i18n="s8.i3name">Café au lait</div><div class="item-desc" data-i18n="s8.i3desc">Coffee with milk</div></div><div class="item-price">20 dh</div></div>
+    <div class="item" data-qty="0" data-img="images/the-marocain.jpg"><div class="item-main"><div class="item-name" data-i18n="s8.i4name">Thé marocain</div><div class="item-desc" data-i18n="s8.i4desc">Moroccan Tea</div></div><div class="item-price">19 dh</div></div>
+    <div class="item" data-qty="0" data-img="images/chocolat-chaud.jpg"><div class="item-main"><div class="item-name" data-i18n="s8.i5name">Chocolat chaud</div><div class="item-desc" data-i18n="s8.i5desc">Hot chocolate</div></div><div class="item-price">20 dh</div></div>
+    <div class="item" data-qty="0" data-img="images/lipton.jpg"><div class="item-main"><div class="item-name" data-i18n="s8.i6name">Lipton</div></div><div class="item-price">20 dh</div></div>
+    <div class="item" data-qty="0" data-img="images/verveine.jpg"><div class="item-main"><div class="item-name" data-i18n="s8.i7name">Verveine</div><div class="item-desc" data-i18n="s8.i7desc">Verbena</div></div><div class="item-price">20 dh</div></div>
   </section>
 
   <hr class="rule">
@@ -759,12 +992,12 @@
     <div class="section-title" data-i18n="s9.title">Boissons froides</div>
     <div class="section-sub" data-i18n="s9.sub">Cold drinks</div>
 
-    <div class="item" data-img="images/san-miguel-0-0.jpg"><div class="item-main"><div class="item-name" data-i18n="s9.i1name">San Miguel 0.0</div></div><div class="item-price">35 dh</div></div>
-    <div class="item" data-img="images/soda.jpg"><div class="item-main"><div class="item-name" data-i18n="s9.i2name">Soda</div><div class="item-desc" data-i18n="s9.i2desc">Coca, Coca Zero, Sprite, Schweppes lemon</div></div><div class="item-price">20 dh</div></div>
-    <div class="item" data-img="images/petite-bouteille-d-eau.jpg"><div class="item-main"><div class="item-name" data-i18n="s9.i3name">Petite bouteille d'eau</div><div class="item-desc" data-i18n="s9.i3desc">Small bottle of water (0.5L)</div></div><div class="item-price">10 dh</div></div>
-    <div class="item" data-img="images/grande-bouteille-d-eau.jpg"><div class="item-main"><div class="item-name" data-i18n="s9.i4name">Grande bouteille d'eau</div><div class="item-desc" data-i18n="s9.i4desc">Big bottle of water (1.5L)</div></div><div class="item-price">15 dh</div></div>
-    <div class="item" data-img="images/eau-petillante.jpg"><div class="item-main"><div class="item-name" data-i18n="s9.i5name">Eau pétillante</div><div class="item-desc" data-i18n="s9.i5desc">Sparkling water (0.5L)</div></div><div class="item-price">15 dh</div></div>
-    <div class="item" data-img="images/eau-petillante-grand.jpg"><div class="item-main"><div class="item-name" data-i18n="s9.i6name">Eau pétillante grand</div><div class="item-desc" data-i18n="s9.i6desc">Sparkling water (1L)</div></div><div class="item-price">25 dh</div></div>
+    <div class="item" data-qty="0" data-img="images/san-miguel-0-0.jpg"><div class="item-main"><div class="item-name" data-i18n="s9.i1name">San Miguel 0.0</div></div><div class="item-price">35 dh</div></div>
+    <div class="item" data-qty="0" data-img="images/soda.jpg"><div class="item-main"><div class="item-name" data-i18n="s9.i2name">Soda</div><div class="item-desc" data-i18n="s9.i2desc">Coca, Coca Zero, Sprite, Schweppes lemon</div></div><div class="item-price">20 dh</div></div>
+    <div class="item" data-qty="0" data-img="images/petite-bouteille-d-eau.jpg"><div class="item-main"><div class="item-name" data-i18n="s9.i3name">Petite bouteille d'eau</div><div class="item-desc" data-i18n="s9.i3desc">Small bottle of water (0.5L)</div></div><div class="item-price">10 dh</div></div>
+    <div class="item" data-qty="0" data-img="images/grande-bouteille-d-eau.jpg"><div class="item-main"><div class="item-name" data-i18n="s9.i4name">Grande bouteille d'eau</div><div class="item-desc" data-i18n="s9.i4desc">Big bottle of water (1.5L)</div></div><div class="item-price">15 dh</div></div>
+    <div class="item" data-qty="0" data-img="images/eau-petillante.jpg"><div class="item-main"><div class="item-name" data-i18n="s9.i5name">Eau pétillante</div><div class="item-desc" data-i18n="s9.i5desc">Sparkling water (0.5L)</div></div><div class="item-price">15 dh</div></div>
+    <div class="item" data-qty="0" data-img="images/eau-petillante-grand.jpg"><div class="item-main"><div class="item-name" data-i18n="s9.i6name">Eau pétillante grand</div><div class="item-desc" data-i18n="s9.i6desc">Sparkling water (1L)</div></div><div class="item-price">25 dh</div></div>
   </section>
 
   <hr class="rule">
@@ -774,10 +1007,10 @@
     <div class="section-title" data-i18n="s10.title">Jus</div>
     <div class="section-sub" data-i18n="s10.sub">Juices</div>
 
-    <div class="item" data-img="images/jus-frais.jpg"><div class="item-main"><div class="item-name" data-i18n="s10.i1name">Jus frais</div><div class="item-desc" data-i18n="s10.i1desc">Fresh juice (Orange, Carrots, Banana, Apple, Pineapple)</div></div><div class="item-price">25 dh</div></div>
-    <div class="item" data-img="images/jus-d-avocat.jpg"><div class="item-main"><div class="item-name" data-i18n="s10.i2name">Jus d'avocat</div><div class="item-desc" data-i18n="s10.i2desc">Avocado juice</div></div><div class="item-price">30 dh</div></div>
-    <div class="item" data-img="images/jus-mixte.jpg"><div class="item-main"><div class="item-name" data-i18n="s10.i3name">Jus mixte</div><div class="item-desc" data-i18n="s10.i3desc">Mixed juice</div></div><div class="item-price">30 dh</div></div>
-    <div class="item" data-img="images/mojito.jpg"><div class="item-main"><div class="item-name" data-i18n="s10.i4name">Mojito</div></div><div class="item-price">25 dh</div></div>
+    <div class="item" data-qty="0" data-img="images/jus-frais.jpg"><div class="item-main"><div class="item-name" data-i18n="s10.i1name">Jus frais</div><div class="item-desc" data-i18n="s10.i1desc">Fresh juice (Orange, Carrots, Banana, Apple, Pineapple)</div></div><div class="item-price">25 dh</div></div>
+    <div class="item" data-qty="0" data-img="images/jus-d-avocat.jpg"><div class="item-main"><div class="item-name" data-i18n="s10.i2name">Jus d'avocat</div><div class="item-desc" data-i18n="s10.i2desc">Avocado juice</div></div><div class="item-price">30 dh</div></div>
+    <div class="item" data-qty="0" data-img="images/jus-mixte.jpg"><div class="item-main"><div class="item-name" data-i18n="s10.i3name">Jus mixte</div><div class="item-desc" data-i18n="s10.i3desc">Mixed juice</div></div><div class="item-price">30 dh</div></div>
+    <div class="item" data-qty="0" data-img="images/mojito.jpg"><div class="item-main"><div class="item-name" data-i18n="s10.i4name">Mojito</div></div><div class="item-price">25 dh</div></div>
   </section>
 
   <footer>
@@ -820,9 +1053,18 @@
       <img id="modalImg" src="" alt="">
     </div>
     <div class="modal-body">
-      <div class="modal-name" id="modalName"></div>
+      <div class="modal-name-row">
+        <div class="modal-name" id="modalName"></div>
+        <div class="modal-qty-wrap">
+          <span class="modal-qty-label" id="modalQtyLabel">Qty</span>
+          <button class="qty-step-btn" id="qtyMinus" type="button" aria-label="Decrease quantity">−</button>
+          <input class="qty-input modal-qty-input" id="modalQty" type="number" min="0" max="99" value="0" inputmode="numeric" aria-label="Quantity">
+          <button class="qty-step-btn" id="qtyPlus" type="button" aria-label="Increase quantity">+</button>
+        </div>
+      </div>
       <div class="modal-desc" id="modalDesc"></div>
       <div class="modal-price" id="modalPrice"></div>
+      <button class="modal-add-btn" id="modalAddBtn" type="button">Add</button>
     </div>
   </div>
 </div>
@@ -1099,8 +1341,15 @@ const modalPhoto = document.getElementById('modalPhoto');
 const modalName = document.getElementById('modalName');
 const modalDesc = document.getElementById('modalDesc');
 const modalPrice = document.getElementById('modalPrice');
+const modalQty = document.getElementById('modalQty');
+const modalQtyLabel = document.getElementById('modalQtyLabel');
+const qtyMinus = document.getElementById('qtyMinus');
+const qtyPlus = document.getElementById('qtyPlus');
+const modalAddBtn = document.getElementById('modalAddBtn');
+let currentModalItem = null;
 
 function openModal(itemEl){
+  currentModalItem = itemEl;
   const img = itemEl.getAttribute('data-img');
   const nameEl = itemEl.querySelector('.item-name');
   const descEl = itemEl.querySelector('.item-desc');
@@ -1110,6 +1359,8 @@ function openModal(itemEl){
   modalDesc.innerHTML = descEl ? descEl.innerHTML : '';
   modalDesc.style.display = descEl ? 'block' : 'none';
   modalPrice.textContent = priceEl ? priceEl.textContent : '';
+  modalQty.value = itemEl.dataset.qty || '0';
+  modalAddBtn.textContent = (cartTranslations[getCurrentLang()] || cartTranslations.en).add;
 
   modalPhoto.classList.remove('photo-fallback');
   modalImg.style.display = 'block';
@@ -1125,6 +1376,7 @@ function openModal(itemEl){
 
 function closeModal(){
   dishModal.classList.remove('open');
+  currentModalItem = null;
   document.body.style.overflow = '';
 }
 
@@ -1139,6 +1391,192 @@ dishModal.addEventListener('click', (e) => {
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') closeModal();
 });
+
+/* ---- WhatsApp ordering ---- */
+const WHATSAPP_NUMBER = '212708830616'; // Replace with the restaurant WhatsApp number, digits only.
+
+const cartBar = document.getElementById('cartBar');
+const cartTitle = document.getElementById('cartTitle');
+const cartTotal = document.getElementById('cartTotal');
+const tableNumber = document.getElementById('tableNumber');
+const whatsappBtn = document.getElementById('whatsappBtn');
+const cartNote = document.getElementById('cartNote');
+
+const cartTranslations = {
+  en: {
+    order: 'Your order',
+    item: 'item',
+    items: 'items',
+    tablePlaceholder: 'Table number',
+    send: 'Order on WhatsApp',
+    add: 'Add',
+    note: 'Enter your table number before sending.',
+    missingTable: 'Please enter your table number.',
+    messageTitle: '🍽️ BABOUCHE — New Order',
+    table: 'Table',
+    total: 'Total'
+  },
+  fr: {
+    order: 'Votre commande',
+    item: 'article',
+    items: 'articles',
+    tablePlaceholder: 'Numéro de table',
+    send: 'Commander sur WhatsApp',
+    add: 'Ajouter',
+    note: 'Entrez votre numéro de table avant d’envoyer.',
+    missingTable: 'Veuillez entrer votre numéro de table.',
+    messageTitle: '🍽️ BABOUCHE — Nouvelle commande',
+    table: 'Table',
+    total: 'Total'
+  },
+  es: {
+    order: 'Su pedido',
+    item: 'producto',
+    items: 'productos',
+    tablePlaceholder: 'Número de mesa',
+    send: 'Pedir por WhatsApp',
+    add: 'Añadir',
+    note: 'Introduce el número de mesa antes de enviar.',
+    missingTable: 'Introduce el número de mesa.',
+    messageTitle: '🍽️ BABOUCHE — Nuevo pedido',
+    table: 'Mesa',
+    total: 'Total'
+  }
+};
+
+function getCurrentLang(){
+  return document.documentElement.lang || 'en';
+}
+
+function getCartItems(){
+  const items = [];
+  document.querySelectorAll('.item[data-img]').forEach(item => {
+    const qty = Math.max(0, parseInt(item.dataset.qty || '0', 10) || 0);
+    if (!qty) return;
+
+    const name = item.querySelector('.item-name')?.textContent.trim() || '';
+    const priceText = item.querySelector('.item-price')?.textContent || '';
+    const price = parseFloat(priceText.replace(',', '.').replace(/[^\d.]/g, '')) || 0;
+
+    items.push({
+      name,
+      qty,
+      price,
+      subtotal: qty * price
+    });
+  });
+  return items;
+}
+
+function updateCart(){
+  const items = getCartItems();
+  const totalQty = items.reduce((sum, item) => sum + item.qty, 0);
+  const total = items.reduce((sum, item) => sum + item.subtotal, 0);
+  const t = cartTranslations[getCurrentLang()] || cartTranslations.en;
+
+  cartBar.classList.toggle('open', totalQty > 0);
+  cartTitle.textContent = `${t.order} · ${totalQty} ${totalQty === 1 ? t.item : t.items}`;
+  cartTotal.textContent = `${total} dh`;
+  tableNumber.placeholder = t.tablePlaceholder;
+  whatsappBtn.textContent = t.send;
+  modalAddBtn.textContent = t.add;
+  cartNote.textContent = t.note;
+  whatsappBtn.disabled = totalQty === 0;
+}
+
+function sendWhatsAppOrder(){
+  const items = getCartItems();
+  const t = cartTranslations[getCurrentLang()] || cartTranslations.en;
+  const table = tableNumber.value.trim();
+
+  if (!items.length) return;
+
+  if (!table){
+    tableNumber.focus();
+    cartNote.textContent = t.missingTable;
+    cartNote.style.color = 'var(--lingon)';
+    return;
+  }
+
+  cartNote.style.color = 'var(--muted)';
+
+  const total = items.reduce((sum, item) => sum + item.subtotal, 0);
+
+  let message = `${t.messageTitle}\n\n`;
+  message += `📍 ${t.table}: ${table}\n\n`;
+
+  items.forEach(item => {
+    message += `• ${item.name} × ${item.qty} — ${item.subtotal} dh\n`;
+  });
+
+  message += `\n💰 ${t.total}: ${total} dh`;
+
+  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+  window.open(url, '_blank', 'noopener,noreferrer');
+}
+
+function setModalQty(value){
+  if (!currentModalItem) return;
+  value = Math.max(0, Math.min(99, parseInt(value, 10) || 0));
+  modalQty.value = value;
+  currentModalItem.dataset.qty = String(value);
+  updateCart();
+}
+
+qtyMinus.addEventListener('click', e => {
+  e.stopPropagation();
+  setModalQty((parseInt(modalQty.value, 10) || 0) - 1);
+});
+
+qtyPlus.addEventListener('click', e => {
+  e.stopPropagation();
+  setModalQty((parseInt(modalQty.value, 10) || 0) + 1);
+});
+
+modalAddBtn.addEventListener('click', e => {
+  e.stopPropagation();
+  if (!currentModalItem) return;
+  setModalQty(modalQty.value);
+  closeModal();
+});
+
+modalQty.addEventListener('click', e => e.stopPropagation());
+modalQty.addEventListener('keydown', e => e.stopPropagation());
+modalQty.addEventListener('input', () => {
+  if (!currentModalItem) return;
+  let value = parseInt(modalQty.value, 10);
+  if (Number.isNaN(value) || value < 0) value = 0;
+  if (value > 99) value = 99;
+  modalQty.value = value;
+  currentModalItem.dataset.qty = String(value);
+  updateCart();
+});
+modalQty.addEventListener('change', () => {
+  if (!currentModalItem) return;
+  let value = parseInt(modalQty.value, 10);
+  if (Number.isNaN(value) || value < 0) value = 0;
+  if (value > 99) value = 99;
+  modalQty.value = value;
+  currentModalItem.dataset.qty = String(value);
+  updateCart();
+});
+
+tableNumber.addEventListener('input', () => {
+  cartNote.style.color = 'var(--muted)';
+  cartNote.textContent = (cartTranslations[getCurrentLang()] || cartTranslations.en).note;
+});
+
+whatsappBtn.addEventListener('click', sendWhatsAppOrder);
+
+/* Keep cart labels synchronized with the selected language. */
+const originalSetLang = setLang;
+setLang = function(lang){
+  originalSetLang(lang);
+  updateCart();
+};
+
+updateCart();
+
 </script>
 
 </body>
